@@ -5,6 +5,7 @@
   <contentType namespace="com.embarcadero.edn">
     <name>Customer</name>
     <displayName>Customer</displayName>
+    <primaryField>name</primaryField>
     <fields>
       <field>
         <name>name</name>
@@ -44,6 +45,7 @@
   </contentType>
   <contentType namespace="com.embarcadero.edn">
     <name>Item</name>
+    <primaryField>skuid</primaryField>
     <fields>
       <field>
         <name>skuid</name>
@@ -82,7 +84,15 @@
   <contentType namespace="com.embarcadero.edn">
     <name>Payment</name>
     <defType>ABSTRACT_TYPE</defType>
+    <primaryField>trxId</primaryField>
     <fields>
+      <field>
+        <name>trxId</name>
+        <displayName>Transaction ID</displayName>
+        <value>
+          <long />
+        </value>
+      </field>
       <field>
         <name>amount</name>
         <displayName>Amount</displayName>
@@ -186,6 +196,7 @@
   <contentType namespace="com.embarcadero.edn">
     <name>OrderDetail</name>
     <defType>CONCRETE_COMPONENT</defType>
+    <primaryField>item</primaryField>
     <fields>
       <field>
         <name>quantity</name>
@@ -258,7 +269,15 @@
   </contentType>
   <contentType namespace="com.embarcadero.edn">
     <name>Order</name>
+    <primaryField>orderId</primaryField>
     <fields>
+      <field>
+        <name>orderId</name>
+        <displayName>Order ID</displayName>
+        <value>
+          <long />
+        </value>
+      </field>
       <field>
         <name>date</name>
         <displayName>Order Date</displayName>
