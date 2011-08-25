@@ -9,4 +9,23 @@
   <modules>
     <module>domain</module>
   </modules>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${plugin.compiler.version}</version>
+        <inherited>true</inherited>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <properties>
+    <smart.cms.version>0.1-SNAPSHOT</smart.cms.version>
+    <junit.version>4.8.2</junit.version>
+    <plugin.compiler.version>2.0.2</plugin.compiler.version>
+  </properties>
 </project>
