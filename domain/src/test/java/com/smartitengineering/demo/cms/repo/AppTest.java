@@ -1,6 +1,12 @@
 package com.smartitengineering.demo.cms.repo;
 
+import com.embarcadero.edn.Customer;
+import com.embarcadero.edn.MasterModule;
 import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+import com.google.inject.TypeLiteral;
 import com.smartitengineering.cms.api.common.MediaType;
 import com.smartitengineering.cms.api.factory.SmartContentAPI;
 import com.smartitengineering.cms.api.factory.type.ContentTypeLoader;
@@ -8,6 +14,7 @@ import com.smartitengineering.cms.api.factory.type.WritableContentType;
 import com.smartitengineering.cms.api.workspace.Workspace;
 import com.smartitengineering.cms.api.workspace.WorkspaceId;
 import com.smartitengineering.cms.binder.guice.Initializer;
+import com.smartitengineering.dao.common.CommonDao;
 import com.smartitengineering.dao.hbase.ddl.HBaseTableGenerator;
 import com.smartitengineering.dao.hbase.ddl.config.json.ConfigurationJsonParser;
 import com.smartitengineering.util.bean.guice.GuiceUtil;
@@ -38,7 +45,7 @@ public class AppTest {
 
   private static final HBaseTestingUtility TEST_UTIL = new HBaseTestingUtility();
   private static final Logger LOGGER = LoggerFactory.getLogger(AppTest.class);
-  private static final int SLEEP_DURATION = 3000;
+  private static final int SLEEP_DURATION = 1500;
   private static final int PORT = 10080;
   private static final String TEST = "workspace";
   private static final String TEST_NS = "sample";
@@ -158,7 +165,22 @@ public class AppTest {
   }
 
   @Test
-  public void testApp() {
-    Assert.assertTrue(true);
+  public void testPersistCustomer() throws InterruptedException {
+    Customer customer = new Customer();
+    final String id = "customer1@testdomain.com";
+    //Setting ID is optional; if not set then a UUID will be generated
+    //Set ID when it is predictable, for example, for Person - Social Security ID, for Employee - Employee Code etc.
+    customer.setId(id);
+    customer.setAddress("Test address");
+    customer.setName("Test Customer 1");
+    Injector injector = Guice.createInjector(new MasterModule());
+    CommonDao<Customer, String> dao = injector.getInstance(Key.get(new TypeLiteral<CommonDao<Customer, String>>() {
+    }));
+    Assert.assertNotNull(dao);
+    dao.save(customer);
+    Customer readCustomer = dao.getById(id);
+    Assert.assertNotNull(readCustomer);
+    //This is to ensure that the indexing takes place of the just saved customer
+    Thread.sleep(SLEEP_DURATION);
   }
 }
