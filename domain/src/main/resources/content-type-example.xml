@@ -218,16 +218,19 @@
         <name>item</name>
         <displayName>Item</displayName>
         <value>
+          <!-- Aggregate an Item -->
           <content>
             <definition>
               <typeNS>com.embarcadero.edn</typeNS>
               <typeName>Item</typeName>
             </definition>
+            <!-- Whether an order detail's item should be searchable from an order detail document -->
             <availableForSearch>true</availableForSearch>
           </content>
         </value>
       </field>
     </fields>
+    <!-- Each representation basically represents an operation with a return type -->
     <representations>
       <representation>
         <name>getPriceForQuantity</name>
@@ -309,6 +312,7 @@
                 </content>
               </composition>
             </simple-value>
+            <!-- Specifies cardinal relationship -->
             <minSize>1</minSize>
           </collection>
         </value>
@@ -326,6 +330,7 @@
                 </definition>
               </content>
             </simple-value>
+            <!-- Specifies cardinal relationship -->
             <minSize>1</minSize>
           </collection>
         </value>
@@ -374,3 +379,4 @@
     </representations>
   </contentType>
 </contentTypes>
+
